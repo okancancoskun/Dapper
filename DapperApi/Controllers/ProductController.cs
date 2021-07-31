@@ -91,5 +91,15 @@ namespace DapperApi.Controllers
         {
             return productRepository.PassDataToExpando();
         }
+        [HttpGet("getDynamically")]
+        public ActionResult GetDynamically()
+        {
+            return Ok(productRepository.getProductsDynamically());
+        }
+        [HttpGet("combineDynamically")]
+        public ActionResult CombineDatasDynamically()
+        {
+            return Ok(productRepository.CombineDatasDynamically());
+        }
     }
 }

@@ -110,7 +110,24 @@ namespace DapperApi.Repos
                 expando.data = result;
                 return expando;
             }
-
+        }
+        public dynamic getProductsDynamically()
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                string sql = "SELECT * FROM Product";
+                dbConnection.Open();
+                return dbConnection.Query(sql).Select(x => new { prdName = x.name, prdDetail = x.detail });
+            }
+        }
+        public dynamic CombineDatasDynamically()
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                string sql = "SELECT Product.id as productId, Product.name as productName, Category.id as categoryId, Category.name as categoryName FROM Product, Category";
+                dbConnection.Open();
+                return dbConnection.Query(sql).Select(x => new { prdName = x.productName, categoryId = x.categoryId });
+            }
         }
     }
 }
